@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <script>
+
+        /**
+         * Simulates the computer choosing a Rock/Paper/Scissors play
+         * @return {int} 0 - Rock, 1 - Paper, 2 - Scissors
+         */
+        function computerPlay () {
+            
+            return Math.floor(Math.random() * 3);
+        }
+
+        /**
+         * Compares the player's pick to the computer's to decide the result
+         * @param playerSelection {int} 0 - Rock, 1 - Paper, 2 - Scissors
+         * @param computerSelection {int} 0 - Rock, 1 - Paper, 2 - Scissors
+         * @return {int} -1 loss, 0 tie, 1 win
+         */
+        function playRound(playerSelection, computerSelection) {
+            
+            let result;
+            if (playerSelection === computerSelection) {
+                result = 0;
+            } else if (playerSelection === (computerSelection + 1) % 3) {
+                result = 1;
+            } else {
+                result = 2;
+            }
+            return result; 
+        }
+
+        /**
+         * Plays a given number of rounds of Rock/Paper/Scissors against an
+         * advanced AI
+         * @param rounds {int} Number of rounds to play
+         */
+        function game(rounds) {
+            
+            const PLAYS = ["rock", "paper", "scissors"];
+            const RESULTS = ["Tie", "Win", "Loss"];
+
+            console.log("Let's play " + rounds + " games of Rock/Paper/Scissors.");
+            let tally = [0, 0, 0];
+            for (i = 0; i < rounds; i++) {
+                let playerInput = "undefined";
+                while (!PLAYS.includes(playerInput.toLowerCase())) {
+                    playerInput = window.prompt("GAME " + i + ": Rock, Paper, or Scissors?");
+                }
+                let playerSelection = PLAYS.indexOf(playerInput.toLowerCase());
+                let computerSelection = computerPlay();
+                result = playRound(playerSelection, computerSelection);
+                tally[result]++;
+                console.log(RESULTS[result] + "! " + PLAYS[playerSelection] + " vs " + PLAYS[computerSelection]);
+            }
+            console.log("Final results: " + tally[0] + " ties, " + tally[1] + " wins, " + tally[2] + " losses");
+
+        }
+        game(5);
+    </script>
+</html>
